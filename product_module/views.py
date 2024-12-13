@@ -15,15 +15,18 @@ def product_detail(request, product_id):
         product_features = Feature.objects.filter(product=product_id)
         product_images_count = range(product_images.count())
         product_quantity = 0
+        cart_id = 0
         # product quantity
         if request.user.is_authenticated:
             if CartItem.objects.filter(user=request.user, product_id=product_id).exists():
                 cart = CartItem.objects.get(user=request.user, product_id=product_id)
                 product_quantity = cart.quantity
+                cart_id = cart.id
 
         return render(request, 'product_module/product_detail.html',
                       {'product': product, 'product_images': product_images, 'product_features': product_features,
-                       'product_images_count': product_images_count, 'product_quantity': product_quantity})
+                       'product_images_count': product_images_count, 'product_quantity': product_quantity,
+                       'cart_id': cart_id})
     else:
         return HttpResponseNotFound()
 

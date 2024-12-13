@@ -99,27 +99,29 @@
 
     <!-- start add to cart button -->
 
-    <form method="post" action="{% url 'add-to-cart' %}" class="add-product-to-cart shadow">
+    <div method="post" class="add-product-to-cart shadow">
         {% csrf_token %}
         <input type="hidden" name="product_id" value="{{ product.id }}">
          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-        <button data-mdb-button-init data-mdb-ripple-init
+        <a data-mdb-button-init data-mdb-ripple-init
+           href="{% url 'decrease-cart-product' cart_id=cart_id %}"
            class="btn btn-link px-2"
            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
             <i class="fa fa-minus"></i>
-        </button>
+        </a>
 
         <input id="form1" min="0" name="quantity"
                value="{{ product_quantity }}" type="number"
                class="form-control form-control-sm" readonly/>
 
-        <button data-mdb-button-init data-mdb-ripple-init
+        <a data-mdb-button-init data-mdb-ripple-init
+           href="{% url 'increase-product-to-cart' product_id=product.id %}"
            class="btn btn-link px-2"
            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
             <i class="fa fa-plus"></i>
-        </button>
+        </a>
          </div>
-    </form>
+    </div>
 
     <!-- end add to cart button -->
 
