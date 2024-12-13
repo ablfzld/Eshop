@@ -31,7 +31,7 @@ def cart_view(request):
                        'cart_final_price': cart_final_price})
     return HttpResponseRedirect('/account/login/')
 
-def increase_product_to_cart(request,product_id):
+def increase_cart_product(request,product_id):
     if request.user.is_authenticated:
         product = Product.objects.get(id=product_id)
         if product is not None:
@@ -48,15 +48,6 @@ def increase_product_to_cart(request,product_id):
             return redirect(request.META.get('HTTP_REFERER', '/'))
         return HttpResponseNotFound()
     return HttpResponseRedirect('/account/login')
-
-def increase_cart_product(request, cart_id):
-    if request.user.is_authenticated:
-        cart = CartItem.objects.get(user=request.user, id=cart_id)
-        if cart is not None:
-            cart.quantity += 1
-            cart.save()
-            return redirect(request.META.get('HTTP_REFERER', '/'))
-    return HttpResponseNotFound()
 
 def decrease_cart_product(request, cart_id):
     if request.user.is_authenticated:

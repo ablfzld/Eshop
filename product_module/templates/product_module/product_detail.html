@@ -115,7 +115,7 @@
                class="form-control form-control-sm" readonly/>
 
         <a data-mdb-button-init data-mdb-ripple-init
-           href="{% url 'increase-product-to-cart' product_id=product.id %}"
+           href="{% url 'increase-cart-product' product_id=product.id %}"
            class="btn btn-link px-2"
            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
             <i class="fa fa-plus"></i>
