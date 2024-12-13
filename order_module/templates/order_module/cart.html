@@ -13,35 +13,63 @@
             <h6>سبد خرید شما</h6>
             <p>{{ cart_items_count }} کالا</p>
             {% if cart_items %}
+                <section class="h-100">
+                    <div class="container h-100 py-5">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-10">
+                                {% for cart_item in cart_items %}
+                                    <div class="card rounded-3 mb-4">
+                                        <div class="card-body p-4">
+                                            <div class="row d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img
+                                                            src="/{{ cart_item.product.main_image }}"
+                                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <p class="lead fw-normal mb-2">{{ cart_item.product.title }}</p>
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                    <button data-mdb-button-init data-mdb-ripple-init
+                                                            class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
 
-                <ul class="cart-product-list">
+                                                    <input id="form1" min="0" name="quantity"
+                                                           value="{{ cart_item.quantity }}" type="number"
+                                                           class="form-control form-control-sm"/>
 
-                {% for cart_item in cart_items %}
-                    <li>
-                        <img src="/{{ cart_item.product.main_image }}"/>
-                        <div>
-                            <a href="{% url 'product-detail' product_id=cart_item.product.id %}"><h5>{{ cart_item.product.title }} <p>({{ cart_item.quantity }}عدد)</p></h5></a>
-                            {% if cart_item.product.discount > 0 %}
-                                <p class="cart-price-discount">
-                                    <b>{{ cart_item.product.discount_price }}</b>
-                                    <span><i>{{ cart_item.product.formated_price }}</i></span>
-                                </p>
-                            {% else %}
-                                <p class="cart-price-discount">
-                                    <b>{{ cart_item.product.formated_price }}</b>
-                                </p>
-                            {% endif %}
+                                                    <button data-mdb-button-init data-mdb-ripple-init
+                                                            class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    {% if cart_item.product.discount > 0 %}
+                                                        <h5 class="mb-0">{{ cart_item.product.discount_price }}</h5>
+                                                    {% else %}
+                                                        <h5 class="mb-0">{{ cart_item.product.formated_price }}</h5>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <a href="{% url 'remove-from-cart' cart_id=cart_item.id %}"
+                                                       class="text-danger"><i
+                                                            class="fa fa-trash fa-lg"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
 
-                            <a class="delete-from-cart" href="{% url 'remove-from-cart' cart_id=cart_item.id %}">حذف از سبد خرید</a>
+                            </div>
                         </div>
-                    </li>
-                {% endfor %}
-
-
-            </ul>
-            <br>
-            <br>
-            <div class="cart-info">
+                    </div>
+                </section>
+                <br>
+                <br>
+                <div class="cart-info">
                 <h5>
                     جمع کالاها({{ cart_items_count }}): {{ cart_price_count }} تومان
                 </h5>
@@ -54,11 +82,12 @@
                 <a href="{% url 'select-address' %}" class="cart-pay btn btn-success">تایید و تکمیل سفارش</a>
 
             {% else %}
-            	<div class="alert alert-info">
-                <h5>سبد خرید شما خالی است.</h5>
-                <p>
-                    میتوانید از <a href="{% url 'product-list' %}">این لینک</a> محصولات را انتخاب و به سبد خرید خود اضافه کنید.
-                </p>
+                <div class="alert alert-info">
+                    <h5>سبد خرید شما خالی است.</h5>
+                    <p>
+                        میتوانید از <a href="{% url 'product-list' %}">این لینک</a> محصولات را انتخاب و به سبد خرید خود
+                        اضافه کنید.
+                    </p>
                 </div>
             {% endif %}
             </div>
