@@ -51,6 +51,23 @@ def add_to_cart(request):
         return HttpResponseNotFound()
     return HttpResponseRedirect('/account/login')
 
+def increase_cart_product(request, cart_id):
+    if request.user.is_authenticated:
+        cart = CartItem.objects.get(user=request.user, id=cart_id)
+        if cart is not None:
+            cart.quantity += 1
+            cart.save()
+            return redirect('/order/cart')
+    return HttpResponseNotFound()
+
+def decrease_cart_product(request, cart_id):
+    if request.user.is_authenticated:
+        cart = CartItem.objects.get(user=request.user, id=cart_id)
+        if cart is not None:
+            cart.quantity -= 1
+            cart.save()
+            return redirect('/order/cart')
+    return HttpResponseNotFound()
 
 def remove_from_cart(request, cart_id):
     if request.user.is_authenticated:
