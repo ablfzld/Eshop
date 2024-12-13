@@ -21,7 +21,8 @@ from order_module import views
 
 urlpatterns = [
     path('cart', views.cart_view, name='cart'),
-    path('add-to-cart', views.add_to_cart, name='add-to-cart'),
+    path('increase-cart-product/<int:product_id>', views.increase_cart_product, name='increase-cart-product'),
+    path('decrease-cart-product/<int:cart_id>', views.decrease_cart_product, name='decrease-cart-product'),
     path('remove-from-cart/<int:cart_id>', views.remove_from_cart, name='remove-from-cart'),
     path('select_address', views.select_address, name='select-address'),
     path('final_order', views.final_order, name='final_order'),
