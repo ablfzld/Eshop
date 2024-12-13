@@ -31,7 +31,7 @@ def cart_view(request):
                        'cart_final_price': cart_final_price})
     return HttpResponseRedirect('/account/login/')
 
-def add_to_cart(request):
+def increase_product_to_cart(request):
     if request.user.is_authenticated:
         product_id = request.POST.get('product_id')
         quantity = request.POST.get('quantity')
@@ -47,7 +47,7 @@ def add_to_cart(request):
                 cart.product = product
                 cart.quantity = quantity
                 cart.save()
-            return redirect('/order/cart')
+            return redirect(f'/products/{product_id}')
         return HttpResponseNotFound()
     return HttpResponseRedirect('/account/login')
 
