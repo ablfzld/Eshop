@@ -1,0 +1,127 @@
+{% extends 'shared/_layout.html' %}
+{% block title %}
+    محصولات
+{% endblock %}
+{% block content %}
+
+    <!-- location -->
+    <ul class="location">
+        <li><a href="{% url 'home' %}">خانه</a> /</li>
+        <li>محصولات</li>
+    </ul>
+    <!-- location -->
+
+
+    <div class="container">
+
+        <!-- filter -->
+        <form action="{% url 'product-list' %}" id="Archive_Form" class="archive-filter shadow-sm" method="get">
+            <input type="hidden" name="page" id="Current_Page" value="1">
+            <input type="text" class="archive-filter-search shadow-sm col-8" name="search" value="{{ search }}"
+                   placeholder="جستوجو...">
+            <select class="archive-filter-order shadow-sm col-3" name="order">
+
+                {% if order == 'date' %}
+                    <option value="date">مرتب سازی</option>
+                    <option value="mostediscount">بیشترین تخفیف</option>
+                    <option value="mostexpensive">گران‌ترین</option>
+                    <option value="cheapest">ارزان‌ترین</option>
+                    <option value="bestseller">پرفروش‌ترین</option>
+
+                {% elif order == 'mostexpensive' %}
+                    <option value="mostexpensive">گران‌ترین</option>
+                    <option value="date">مرتب سازی</option>
+                    <option value="mostediscount">بیشترین تخفیف</option>
+                    <option value="cheapest">ارزان‌ترین</option>
+                    <option value="bestseller">پرفروش‌ترین</option>
+
+                {% elif order == 'cheapest' %}
+                    <option value="cheapest">ارزان‌ترین</option>
+                    <option value="date">مرتب سازی</option>
+                    <option value="mostediscount">بیشترین تخفیف</option>
+                    <option value="mostexpensive">گران‌ترین</option>
+                    <option value="bestseller">پرفروش‌ترین</option>
+
+                {% elif order == 'mostediscount' %}
+                    <option value="mostediscount">بیشترین تخفیف</option>
+                    <option value="date">مرتب سازی</option>
+                    <option value="mostexpensive">گران‌ترین</option>
+                    <option value="cheapest">ارزان‌ترین</option>
+                    <option value="bestseller">پرفروش‌ترین</option>
+
+                {% elif order == 'bestseller' %}
+                    <option value="bestseller">پرفروش‌ترین</option>
+                    <option value="date">مرتب سازی</option>
+                    <option value="mostediscount">بیشترین تخفیف</option>
+                    <option value="mostexpensive">گران‌ترین</option>
+                    <option value="cheapest">ارزان‌ترین</option>
+                {% else %}
+                    <option value="date">مرتب سازی</option>
+                    <option value="mostediscount">بیشترین تخفیف</option>
+                    <option value="mostexpensive">گران‌ترین</option>
+                    <option value="cheapest">ارزان‌ترین</option>
+                    <option value="bestseller">پرفروش‌ترین</option>
+                {% endif %}
+
+            </select>
+            <div class="archive-filter-groups shadow-sm col-12">
+                <h3 id="ArchiveFilerBtn">دسته‌بندی ها <i class="fa fa-caret-down"></i></h3>
+                <div class="archive-filter-groups-box" style="display: none;">
+                    {% for category in categories %}
+                        <span class="archive-filter-groups-box-item archive-filter-groups-box-item-group">
+                       {% if category.id|slugify in selected_categories %}
+                           <input name="selected_category" value="{{ category.id }}" type="checkbox" checked
+                                  id="category_{{ category.id }}"> <label
+                               for="category_{{ category.id }}">{{ category.title }}</label>
+                       {% else %}
+                           <input name="selected_category" value="{{ category.id }}" type="checkbox"
+                                  id="category_{{ category.id }}"> <label
+                               for="category_{{ category.id }}">{{ category.title }}</label>
+                       {% endif %}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            <input type="submit"
+                   class="archive-filter-submit btn btn-sm btn-success col-12 col-md-6 offset-0 offset-md-3"
+                   value="جستوجو"/>
+        </form>
+        <!-- filter -->
+
+
+        <!-- start ptoduct list -->
+        <div class="product-list container">
+            <h5 class="product-list-title">محصولات</h5>
+            <ul>
+
+                {% for product in products %}
+                    {% include 'partials/product_box.html' with product=product %}
+                {% endfor %}
+
+
+            </ul>
+        </div>
+        <!-- end product list -->
+
+
+        <!-- paging -->
+        <section class="paging">
+            {% for page in page_count %}
+                {% if page|add:1|slugify == current_page %}
+                    <a class="paging-item paging-select" onclick="ChangePage({{ page|add:1 }})">{{ page|add:1 }}</a>
+                {% else %}
+                    <a class="paging-item" onclick="ChangePage({{ page|add:1 }})">{{ page |add:1 }}</a>
+                {% endif %}
+            {% endfor %}
+
+        </section>
+        <!-- paging -->
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/static/libs/jquery/jquery.js"></script>
+    <script src="/static/scripts/allProduct_page.js"></script>
+{% endblock %}

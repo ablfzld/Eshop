@@ -1,0 +1,60 @@
+{% extends 'shared/_layout.html' %}
+{% block title %}
+	سایت فروشگاهی
+{% endblock %}
+{% block content %}
+
+    <!-- slider -->
+    <div class="slider" id="Slider">
+
+    {% for slider in sliders %}
+    	<!-- slide -->
+        <div class="slide" id="Slide_{{ forloop.counter }}">
+            <button class="slide-right-btn" onclick="MoveSliderRight()"><i class="fa fa-arrow-right"></i></button>
+            <img src="{{ slider.image }}" />
+            <button class="slide-left-btn" onclick="MoveSliderLeft()"><i class="fa fa-arrow-left"></i></button>
+            <div class="slide-count">
+                {% for i in slides_count %}
+                	<span onclick="ChangeSlide({{ i|add:1}})"></span>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- slide  -->
+    {% endfor %}
+
+    </div>
+    <!-- slider -->
+
+
+
+
+
+    <!-- start ptoduct list -->
+    <div class="product-list container">
+        <h5 class="product-list-title">محصولات</h5>
+        <ul>
+            {% for product in latest_products %}
+            	{% include 'partials/product_box.html' with product=product %}
+            {% endfor %}
+
+        </ul>
+    </div>
+    <!-- end ptoduct list -->
+    <br>
+    <!-- start ptoduct list -->
+    <div class="product-list container">
+        <h5 class="product-list-title">تخفیف های ویژه</h5>
+        <ul>
+            {% for product in discount_products %}
+            	{% include 'partials/product_box.html' with product=product %}
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- end ptoduct list -->
+
+{% endblock %}
+
+{% block script %}
+	<script src="/static/libs/jquery/jquery.js"></script>
+    <script src="/static/scripts/slider.js"></script>
+{% endblock %}

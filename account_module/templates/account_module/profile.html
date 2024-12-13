@@ -1,0 +1,70 @@
+{% extends 'shared/_layout.html' %}
+{% load jalali_tags %}
+{% block title %}
+	پروفایل
+{% endblock %}
+
+{% block content %}
+
+    <div class="account row">
+
+            {% include 'account_module/partials/profile_info.html' with user=user %}
+
+            <div class="col-12 col-md-8 account-left shadow-sm">
+                <div>
+                    اطلاعات کاربری
+                    <hr>
+                    <ul class="account-left-information">
+                        <li>
+                            <i class="fa fa-user"></i>
+                             نام : {{ user.first_name }}
+                        </li><li>
+                            <i class="fa fa-user"></i>
+                             نام خانوادگی : {{ user.last_name }}
+                        </li>
+                        <li>
+                            @
+                             ایمیل: {{ user.email }}
+                        </li>
+                        <li>
+                            <i class="fa fa-clock-o"></i>
+                             تاریخ ثبت نام: {{ user.date_joined|to_jalali:'%Y/%m/%d' }}
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                    <br><br>
+                    آدرس های من
+                    <hr>
+                    <br>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>عنوان</th>
+                                <th>آدرس</th>
+                                <th>کد پستی</th>
+                                <th>ویرایش آدرس</th>
+                                <th>حذف آدرس</th>
+                            </tr>
+                        </thead>
+                       <tbody>
+                        {% for address in user_address %}
+                        	<tr>
+                            <td>{{ address.title }}</td>
+                            <td>{{ address.state }}، {{ address.city }}، {{ address.address }}</td>
+                                <td>{{ address.postal_code }}</td>
+                            <td>
+                                <a href="{% url 'edit-address' address_id=address.id %}" class="btn btn-sm btn-primary text-light">ویرایش</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'remove-address' address_id=address.id %}" class="btn btn-sm btn-danger text-light">حذف</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                       </tbody>
+                    </table>
+            </div>
+        </div>
+
+{% endblock %}

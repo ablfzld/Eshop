@@ -1,0 +1,130 @@
+{% extends 'shared/_layout.html' %}
+{% load render_partial %}
+{% block title %}
+    {{ product.title }}
+{% endblock %}
+{% block content %}
+
+    <!-- location -->
+    <ul class="location">
+        <li><a href="{% url 'home' %}">خانه</a> /</li>
+        <li><a href="{% url 'product-list' %}">محصولات</a> /</li>
+        <li>{{ product.title }}</li>
+    </ul>
+    <!-- location -->
+
+
+    <!-- start product -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4">
+
+                <!-- slider -->
+                <div class="slider" id="Slider">
+                    <!-- slide -->
+                    <div class="slide" id="Slide_1">
+                        <button class="slide-right-btn" onclick="MoveSliderRight()"><i
+                                class="fa fa-arrow-right"></i></button>
+                        <img src="/{{ product.main_image }}"/>
+                        <button class="slide-left-btn" onclick="MoveSliderLeft()"><i
+                                class="fa fa-arrow-left"></i></button>
+                        <div class="slide-count">
+                            <span class="slide-show" onclick="ChangeSlide(1)"></span>
+                            {% for i in product_images_count %}
+                                <span onclick="ChangeSlide({{ i|add:2 }})"></span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- slide  -->
+                    {% for img in product_images %}
+                        <!-- slide -->
+                        <div class="slide" id="Slide_{{ forloop.counter|add:1 }}">
+                            <button class="slide-right-btn" onclick="MoveSliderRight()"><i
+                                    class="fa fa-arrow-right"></i></button>
+                            <img src="/{{ img.image }}"/>
+                            <button class="slide-left-btn" onclick="MoveSliderLeft()"><i
+                                    class="fa fa-arrow-left"></i></button>
+                            <div class="slide-count">
+                                <span class="slide-show" onclick="ChangeSlide(1)"></span>
+
+                                {% for i in product_images_count %}
+                                    <span onclick="ChangeSlide({{ i|add:2 }})"></span>
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                        <!-- slide  -->
+                    {% endfor %}
+                </div>
+                <!-- slider -->
+            </div>
+            <div class="col-md-1"><br></div>
+            <div class="col-12 col-md-7">
+
+                <h1>
+                    {{ product.title }}
+                </h1>
+                <h3 class="text-success product-price">{{ product.discount_price }} تومان</h3>
+                <br>
+                <br>
+                <p>
+                    {{ product.description }}
+                </p>
+
+                <br>
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>برند</th>
+                        <td>{{ product.brand.title }}</td>
+                    </tr>
+                    {% for feature in product_features %}
+                        <tr>
+                            <th>{{ feature.title }}</th>
+                            <td>{{ feature.value }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- end product -->
+
+
+    <!-- start add to cart button -->
+
+    <form method="post" action="{% url 'add-to-cart' %}" class="add-product-to-cart">
+    {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <input type="number" name="quantity" placeholder="تعداد" value="1">
+        <button type="submit">افزودن به سبد خرید</button>
+    </form>
+
+    <!-- end add to cart button -->
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    {% render_partial 'product-comments' product_id=product.id %}
+
+{% endblock %}
+
+{% block script %}
+    <script src="/static/libs/jquery/jquery.js"></script>
+    <script src="/static/scripts/slider.js"></script>
+    <script src="/static/scripts/Product_page.js"></script>
+{% endblock %}

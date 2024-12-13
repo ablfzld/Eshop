@@ -1,0 +1,64 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}
+	تکمیل سفارش
+{% endblock %}
+
+{% block content %}
+
+        <div class="container">
+
+        <!-- start order -->
+
+        <div class="order">
+            <h4>انتخاب آدرس</h4>
+<br>
+<br>
+<br>
+            <form action="{% url 'final_order' %}" method="post">
+            {% csrf_token %}
+                <h6>انتخاب آدرس:</h6>
+               {% if user_address %}
+               	 <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>انتخاب</th>
+                            <th>عنوان</th>
+                            <th>آدرس</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                   {% for address in user_address %}
+                   	 <tr>
+                        <td><input type="radio" name="user_address_id" value="{{ address.id }}" id="Address" checked></td>
+                        <td>{{ address.title }}</td>
+                        <td>{{ address.state }}، {{ address.city }}، {{ address.address}}</td>
+                    </tr>
+                   {% endfor %}
+                   </tbody>
+                </table>
+               {% else %}
+               	<div class="alert alert-warning">
+                <h5>آدرسی برای شما وجود ندارد</h5>
+                <p>لطفا قبل از تکمیل خرید از <a class="text-primary" href="{% url 'add-address' %}">این لینک</a> یک آدرس اضافه کنید</p>
+                </div>
+               {% endif %}
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                {% if user_address %}
+                    <button type="submit" class="cart-pay btn btn-success">ادامه</button>
+               {% else %}
+               	<button type="submit" disabled class="cart-pay btn btn-success">ادامه</button>
+               {% endif %}
+            </form>
+        </div>
+
+        <!-- end order -->
+
+    </div>
+
+
+{% endblock %}

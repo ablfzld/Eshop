@@ -1,0 +1,49 @@
+{% extends 'shared/_layout.html' %}
+{% block title %}
+    آدرس جدید - پروفایل
+{% endblock %}
+
+{% block content %}
+
+    <div class="account row">
+
+        {% include 'account_module/partials/profile_info.html' with user=user %}
+
+        <div class="col-12 col-md-8 account-left shadow-sm">
+        <div>
+            افزودن آدرس جدید
+                    <hr>
+            <br>
+
+            <form action="{% url 'add-address-post' %}" method="post">
+            {% csrf_token %}
+                <input type="hidden" name="last_url" value="{{ last_url }}">
+                <select class="form-select" name="state" id="State">
+                    {% for state in states %}
+                        <option value="{{ state.id }}">{{ state.title }}</option>
+                    {% endfor %}
+
+                </select>
+                <br>
+                <br>
+                <select class="form-select" name="city" id="Citys">
+                    {% for city in citys %}
+                    	<option value="{{ city.id }}">{{ city.title }}</option>
+                    {% endfor %}
+
+                </select>
+                <br>
+                <br>
+                <input type="text" class="form-control" name="title" placeholder="عنوان" />
+                <br>
+                <input type="text" class="form-control" name="address" placeholder="آدرس" />
+                <br>
+                <input type="text" class="form-control" name="postal_code" placeholder="کد پستی" />
+                <br>
+                <input type="submit" class="btn btn-success" value="افزودن">
+            </form>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

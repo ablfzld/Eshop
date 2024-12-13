@@ -1,0 +1,44 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}
+    تکمیل سفارش
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <!-- start order -->
+
+        <div class="order">
+            <h4>تائید و پرداخت سفارش</h4>
+            <hr>
+            <br>
+            <div class="order-info">
+                <h5> گیرنده: {{ user.get_full_name }}</h5>
+                <h5>
+                    به آدرس: {{ address.state }} ، {{ address.city }} ، {{ address.address }}
+                </h5>
+                <br>
+                <h5>
+                    جمع کالاها({{ cart_items_count }}): {{ cart_price_count }} تومان
+                </h5>
+                <h6>
+                    تخفیف: {{ cart_discount_count }} تومان
+                </h6>
+                <h6>
+                    هزینه ارسال: 30000 تومان
+                </h6><br>
+                <h3>
+                    مبلغ قابل پرداخت: {{ cart_final_price }} تومان
+                </h3><br>
+                <a href="{% url 'request' amount=cart_raw_final_price %}" class="cart-pay btn btn-success">پرداخت</a>
+            </div>
+        </div>
+
+        <!-- end order -->
+
+    </div>
+
+
+{% endblock %}

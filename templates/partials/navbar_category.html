@@ -1,0 +1,24 @@
+<button class="navbar-link navbar-category-btn" href="#">
+            <i class="fa fa-bars"></i> دسته بندی
+            <div class="navbar-category">
+
+                {% for top_category in top_categories %}
+
+                    <div class="navbar-category-link">
+                    <a href="/products?selected_category={{ top_category.id }}">{{ top_category.title }}</a>
+                    <div class="navbar-category-box">
+                        <div>
+                            {% for category in all_categories %}
+                            	{% if category.parent_id == top_category.id %}
+                            		<p class="navbar-category-subtitle"><a href="/products?selected_category={{ category.id }}">{{ category.title }}</a></p>
+                            	{% endif %} 
+                            {% endfor %}
+                             
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </button>

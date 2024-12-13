@@ -1,0 +1,8 @@
+.idea/
+db.sqlite3
+static/uploads/product_imgs/*.webp
+static/uploads/product_imgs/*.png
+static/uploads/product_imgs/*.jpg
+static/uploads/slider_imgs/*.webp
+static/uploads/slider_imgs/*.png
+static/uploads/slider_imgs/*.jpg

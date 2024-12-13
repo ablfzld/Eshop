@@ -1,0 +1,41 @@
+<!-- start product -->
+<li class="product-list-card  col-12 col-md-4 col-lg-3">
+
+    <a href="{% url 'product-detail' product.id %}">
+        <img src="/{{ product.main_image }}" alt="{{ product.title }}">
+
+        {% if product.discount > 0 %}
+            <b class="product-list-card-info-price-discount-percent">%{{ product.discount }}</b>
+        {% endif %}
+        <div class="product-list-card-info">
+            <h6 class="product-list-card-info-title">{{ product.title }}</h6>
+            <p class="product-list-card-info-price-discount">
+                {% if product.discount > 0 %}
+
+                    <b>{{ product.discount_price }}</b>
+                    <span><i>{{ product.formated_price }}</i></span>
+                {% else %}
+                    <b>{{ product.formated_price }}</b>
+                {% endif %}
+                <br>
+
+            </p>
+        </div>
+    </a>
+</li>
+<!-- end product -->
+
+
+{#  <!-- start product -->#}
+{#            <li class="product-list-card col-12 col-md-4 col-lg-3">#}
+{#                <a href="product.html">#}
+{#                    <img src="static/imgs/monitor.jpg" alt="عنوان محصول">#}
+{#                    <div class="product-list-card-info">#}
+{#                        <h6 class="product-list-card-info-title">عنوان محصول</h6>#}
+{#                        <p class="product-list-card-info-price-discount">#}
+
+{#                        </p>#}
+{#                    </div>#}
+{#                </a>#}
+{#            </li>#}
+{#            <!-- end product -->#}

@@ -1,0 +1,65 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}
+	ثبت نام در سایت
+{% endblock %}
+
+{% block content %}
+
+    <!-- location -->
+    <ul class="location">
+        <li><a href="{% url 'home' %}">خانه</a> /</li>
+        <li>ثبت نام در سایت</li>
+    </ul>
+    <!-- location -->
+
+
+	<form class="login" method="post" action="{% url 'register-post' %}" id="Register_Form">
+    {% csrf_token %}
+        <h3>ثبت نام در سایت</h3>
+        <hr />
+        {% if error %}
+         	<p class="text-danger">کاربری با این ایمیل قبلا در سایت ثبت نام کرده است!</p>
+         {% endif %}
+        <div class="login-group">
+            <input type="text" autocomplete="off" class="login-input text-start" id="FirstName" onfocus="FirstNameFoucs()"
+                onblur="FirstNameBlur()" name="first_name" />
+            <label class="login-lable" id="FirstNameLable" for="UserName">نام:</label>
+            <i class="login-icon fa fa-user"></i>
+            <p class="login-error login-error-hide" id="FirstNameError">لطفا نام خود را وارد کنید.</p>
+        </div>
+     <div class="login-group">
+            <input type="text" autocomplete="off" class="login-input text-start" id="LastName" onfocus="LastNameFoucs()"
+                onblur="LastNameBlur()" name="last_name" />
+            <label class="login-lable" id="LastNameLable" for="LastName">نام خانوادگی:</label>
+            <i class="login-icon fa fa-user"></i>
+            <p class="login-error login-error-hide" id="LastNameError">لطفا نام خانوادگی خود را وارد کنید.</p>
+        </div>
+        <div class="login-group">
+            <input type="email" autocomplete="off" class="login-input text-start" id="Email" onfocus="EmailFoucs()"
+                onblur="EmailBlur()" name="email" />
+            <label class="login-lable" id="EmailLable" for="Email">ایمیل:</label>
+            <i class="login-icon fa fa-user"></i>
+            <p class="login-error login-error-hide" id="EmailError">لطفا ایمیل را وارد کنید.</p>
+        </div>
+        <div class="login-group">
+            <input type="password" class="login-input text-start" id="Password" onfocus="PasswordFoucs()"
+                onblur="PasswordBlur()" name="password" />
+            <label class="login-lable" id="PasswordLable" for="Password">رمزعبور:</label>
+            <i class="login-icon fa fa-lock"></i>
+            <i class="login-password-show fa fa-eye" onclick="ShowPassword()"></i>
+            <p class="login-error login-error-hide" id="PasswordError">لطفا رمزعبور را وارد کنید.</p>
+        </div>
+        <br />
+        <a class="login-link" href="{% url 'login' %}">حسابی دارید؟ ورود به سایت.</a>
+        <br />
+        <br />
+        <input type="button" onclick="FormSubmit()" value="ثبت نام" class="btn btn-success col-12" />
+    </form>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/static/libs/jquery/jquery.js"></script>
+    <script src="/static/scripts/sign_up.js"></script>
+{% endblock %}

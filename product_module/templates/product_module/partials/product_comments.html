@@ -1,0 +1,46 @@
+{% load jalali_tags %}
+<!-- start comments -->
+    <div class="comments" id="Comments">
+        {% if user.is_authenticated %}
+        	<form action="{% url 'add-comment' %}" method="post" class="comments-add">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" id="product_id" value="{{ product_id }}"/>
+            <textarea placeholder="نظرتان را وارد کنید..." id="CommentText" name="text"></textarea>
+            <button type="submit"
+                    class="btn btn-success btn-sm comments-add-submit">ارسال
+            </button>
+        </form>
+        {% else %}
+        	<div class="alert alert-info">
+                <p>
+                    برای نظر دادن ابتدا وارد سایت شوید
+                </p>
+            </div>
+        {% endif %}
+
+        <ul class="comments-list" id="CommentsList">
+
+           {% for comment in comments %}
+
+                <!-- comment box -->
+            <li class="comments-box" id="Comment_1">
+                <header>
+                    <img src="/static/imgs/user.png"/>
+                    <h5>{{ comment.user.first_name|add:' '|add:comment.user.last_name }}</h5>
+                    {% if user.id == comment.user_id or user.is_superuser %}
+                    	<a href="{% url 'remove-comment' comment_id=comment.id %}" class="comments-box-remove">حذف</a>
+                    {% endif %}
+                </header>
+                <p>
+                    {{ comment.text }}
+                </p>
+                <span>{{ comment.created_at|to_jalali:'%Y/%m/%d' }}</span>
+            </li>
+            <!-- comment box -->
+
+           {% endfor %}
+
+
+        </ul>
+    </div>
+    <!-- end comments -->

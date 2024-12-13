@@ -1,0 +1,22 @@
+{% load jalali_tags %}
+<div class="col-12 col-md-3 account-right">
+                <div class="col-12 shadow-sm account-right-profile">
+                    <img src="/static/imgs/user.png">
+                    <h3>{{ user.get_full_name }}</h3>
+                    <h5>عضویت: {{ user.date_joined|to_jalali:'%Y/%m/%d'}}</h5>
+                </div>
+                <br>
+                <div class="col-12 shadow-sm account-right-links">
+                    پنل کاربری
+                    <hr>
+                    <ul>
+                        <li><a href="{% url 'profile' %}" class="btn-link">اطلاعات کاربری</a></li>
+                        <li> <a href="{% url 'add-address' %}" class="btn-link">افزودن آدرس جدید</a></li>
+                        <li> <a href="#" class="btn-link">سفارشات</a></li>
+                        <li> <a href="{% url 'edit-name' %}" class="btn-link">ویرایش نام کاربری</a></li>
+                        <li> <a href="#" class="btn-link">ویرایش کلمه عبور</a></li>
+                        <li> <a href="{% url 'logout' %}" class="btn-link">خروج از حساب</a></li>
+                    </ul>
+                </div>
+                <br>
+            </div>

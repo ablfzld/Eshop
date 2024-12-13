@@ -1,0 +1,54 @@
+{% extends 'shared/_layout.html' %}
+{% block title %}
+    ویرایش آدرس - پروفایل
+{% endblock %}
+
+{% block content %}
+
+    <div class="account row">
+
+        {% include 'account_module/partials/profile_info.html' with user=user %}
+
+        <div class="col-12 col-md-8 account-left shadow-sm">
+        <div>
+            ویرایش آدرس
+                    <hr>
+            <br>
+
+            <form action="{% url 'edit-address-post' address_id=address.id %}" method="post">
+            {% csrf_token %}
+                <select class="form-select" name="state" id="State">
+                    <option value="{{ address.state.id }}">{{ address.state.title }}</option>
+                    {% for state in states %}
+                        {% if state.id != address.state.id %}
+                        	<option value="{{ state.id }}">{{ state.title }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                </select>
+                <br>
+                <br>
+                <select class="form-select" name="city" id="Citys">
+                <option value="{{ address.city.id }}">{{ address.city.title }}</option>
+                    {% for city in citys %}
+                    	{% if city.id != address.city.id %}
+                        	<option value="{{ city.id }}">{{ city.title }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                </select>
+                <br>
+                <br>
+                <input type="text" class="form-control" name="title" value="{{ address.title }}" placeholder="عنوان" />
+                <br>
+                <input type="text" class="form-control" name="address" value="{{ address.address }}" placeholder="آدرس" />
+                <br>
+                <input type="text" class="form-control" name="postal_code" value="{{ address.postal_code }}" placeholder="کد پستی" />
+                <br>
+                <input type="submit" class="btn btn-primary" value="ویرایش">
+            </form>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

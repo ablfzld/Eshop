@@ -1,0 +1,30 @@
+{% extends 'shared/_layout.html' %}
+{% block title %}
+    ویرایش نام - پروفایل
+{% endblock %}
+
+{% block content %}
+
+    <div class="account row">
+
+        {% include 'account_module/partials/profile_info.html' with user=user %}
+
+        <div class="col-12 col-md-8 account-left shadow-sm">
+        <div>
+            ویرایش نام
+                    <hr>
+            <br>
+
+            <form action="{% url 'edit-name-post' %}" method="post">
+            {% csrf_token %}
+                <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}" placeholder="نام" />
+                <br>
+                <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" placeholder="نام خانوادگی" />
+                <br>
+                <input type="submit" class="btn btn-primary" value="ویرایش">
+            </form>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}
