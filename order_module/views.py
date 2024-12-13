@@ -53,9 +53,11 @@ def decrease_cart_product(request, cart_id):
     if request.user.is_authenticated:
         cart = CartItem.objects.get(user=request.user, id=cart_id)
         if cart is not None:
-            if cart.quantity > 0:
+            if cart.quantity > 1:
                 cart.quantity -= 1
                 cart.save()
+            else:
+                cart.delete()
             return redirect(request.META.get('HTTP_REFERER', '/'))
     return HttpResponseNotFound()
 
