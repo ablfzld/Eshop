@@ -798,27 +798,31 @@ a:hover {
     position: fixed;
     bottom: 10px;
     right: 20px;
-    background-color: #ff5858;
+    height: 50px;
     padding: 7px;
     border-radius: 7px;
     z-index: 1000;
+    background-color: #ff6363;
 }
 
 .add-product-to-cart input {
-    width: 30px;
+    width: 80px;
     height: 30px;
-    background-color: #fff4f4;
     outline: none;
     border: none;
     text-align: center;
+    color: #fff;
+    background-color: #ff6363 !important;
 }
 
 .add-product-to-cart button {
-    background-color: #ff5858;
     padding: 7px;
     border-radius: 7px;
-    color: #f3f3f3;
     font-weight: bold;
+    color: #ffeded;
+}
+.add-product-to-cart button:hover{
+    color: #ffffff;
 }
 
 /* end add-product-to-cart */
